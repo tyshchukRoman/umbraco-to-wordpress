@@ -163,6 +163,7 @@ class ConvertLatest
                 // Prepare post data
                 $metaTitle = $this->getValueForLanguage($xml->Properties->metaTitle->Value, $umbracoLang) ?: $title;
                 $metaDesc = $this->getValueForLanguage($xml->Properties->metaDescription->Value, $umbracoLang);
+                $summaryText = $this->getValueForLanguage($xml->Properties->summaryText->Value, $umbracoLang);
                 $createDate = (string)$xml->Info->CreateDate;
                 $testimonialJson = $this->getValueForLanguage($xml->Properties->testimonial->Value, $umbracoLang);
                 $testimonialData = !empty($testimonialJson) ? json_decode($testimonialJson, true) : null;
@@ -176,6 +177,7 @@ class ConvertLatest
                 fwrite($output, '      <post_status>publish</post_status>' . PHP_EOL);
                 fwrite($output, '      <post_date>' . $createDate . '</post_date>' . PHP_EOL);
                 fwrite($output, '      <post_content><![CDATA[' . $content . ']]></post_content>' . PHP_EOL);
+                fwrite($output, '      <summary_text><![CDATA[' . $summaryText . ']]></summary_text>' . PHP_EOL);
                 
                 // Featured image
                 if (isset($this->images[$featuredImageId])) {
